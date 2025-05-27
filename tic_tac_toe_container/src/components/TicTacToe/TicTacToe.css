@@ -1,0 +1,67 @@
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.status {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--kavia-dark);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.board-row {
+    display: flex;
+    gap: 5px;
+}
+
+.square {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.square:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.square:focus {
+    outline: none;
+    border-color: var(--kavia-orange);
+}
+
+.reset-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .square {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+}

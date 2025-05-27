@@ -3,172 +3,188 @@ import './Snake.css';
 
 // PUBLIC_INTERFACE
 const Snake = () => {
-    const GRID_SIZE = 20;
+    // Game settings
+    const BOARD_SIZE = 20;
     const INITIAL_SNAKE = [{ x: 10, y: 10 }];
-    const INITIAL_FOOD = { x: 15, y: 15 };
     const INITIAL_DIRECTION = 'RIGHT';
     const GAME_SPEED = 150;
 
+    // Game state
     const [snake, setSnake] = useState(INITIAL_SNAKE);
-    const [food, setFood] = useState(INITIAL_FOOD);
     const [direction, setDirection] = useState(INITIAL_DIRECTION);
-    const [isGameOver, setIsGameOver] = useState(false);
+    const [food, setFood] = useState({ x: 15, y: 15 });
     const [score, setScore] = useState(0);
+    const [isGameOver, setIsGameOver] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
 
     // Generate random food position
     const generateFood = useCallback(() => {
-        return {
-            x: Math.floor(Math.random() * GRID_SIZE),
-            y: Math.floor(Math.random() * GRID_SIZE)
+        const newFood = {
+            x: Math.floor(Math.random() * BOARD_SIZE),
+            y: Math.floor(Math.random() * BOARD_SIZE)
         };
-    }, []);
-
-    // Check if two positions collide
-    const checkCollision = (pos1, pos2) => {
-        return pos1.x === pos2.x && pos1.y === pos2.y;
-    };
-
-    // Check if position is outside grid
-    const isOutOfBounds = (position) => {
-        return (
-            position.x < 0 || 
-            position.x >= GRID_SIZE || 
-            position.y < 0 || 
-            position.y >= GRID_SIZE
+        
+        // Ensure food doesn't spawn on snake
+        const isOnSnake = snake.some(segment => 
+            segment.x === newFood.x && segment.y === newFood.y
         );
-    };
+        
+        if (isOnSnake) {
+            return generateFood();
+        }
+        return newFood;
+    }, [snake]);
 
-    // Move snake
-    const moveSnake = useCallback(() => {
-        if (isPaused || isGameOver) return;
+    // Handle keyboard controls
+    const handleKeyPress = useCallback((event) => {
+        if (isGameOver) return;
 
-        setSnake(currentSnake => {
-            const head = { ...currentSnake[0] };
+        const keyDirections = {
+            'ArrowUp': 'UP',
+            'ArrowDown': 'DOWN',
+            'ArrowLeft': 'LEFT',
+            'ArrowRight': 'RIGHT',
+            ' ': 'PAUSE'  // Space bar for pause
+        };
+
+        const newDirection = keyDirections[event.key];
+        if (!newDirection) return;
+
+        if (newDirection === 'PAUSE') {
+            setIsPaused(prev => !prev);
+            return;
+        }
+
+        // Prevent 180-degree turns
+        const invalidMoves = {
+            'UP': 'DOWN',
+            'DOWN': 'UP',
+            'LEFT': 'RIGHT',
+            'RIGHT': 'LEFT'
+        };
+
+        if (invalidMoves[newDirection] !== direction) {
+            setDirection(newDirection);
+        }
+    }, [direction, isGameOver]);
+
+    // Set up keyboard event listeners
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+        return () => window.removeEventListener('keydown', handleKeyPress);
+    }, [handleKeyPress]);
+
+    // Main game loop
+    useEffect(() => {
+        if (isGameOver || isPaused) return;
+
+        const moveSnake = () => {
+            const head = { ...snake[0] };
             
+            // Calculate new head position
             switch (direction) {
-                case 'UP': head.y -= 1; break;
-                case 'DOWN': head.y += 1; break;
-                case 'LEFT': head.x -= 1; break;
-                case 'RIGHT': head.x += 1; break;
-                default: break;
+                case 'UP':
+                    head.y -= 1;
+                    break;
+                case 'DOWN':
+                    head.y += 1;
+                    break;
+                case 'LEFT':
+                    head.x -= 1;
+                    break;
+                case 'RIGHT':
+                    head.x += 1;
+                    break;
+                default:
+                    break;
             }
 
-            // Check wall collision
-            if (isOutOfBounds(head)) {
+            // Check for collisions
+            if (
+                head.x < 0 || head.x >= BOARD_SIZE ||
+                head.y < 0 || head.y >= BOARD_SIZE ||
+                snake.some(segment => segment.x === head.x && segment.y === head.y)
+            ) {
                 setIsGameOver(true);
-                return currentSnake;
+                return;
             }
 
-            // Check self collision
-            if (currentSnake.some(segment => checkCollision(segment, head))) {
-                setIsGameOver(true);
-                return currentSnake;
-            }
+            const newSnake = [head, ...snake];
 
-            const newSnake = [head, ...currentSnake];
-
-            // Check food collision
-            if (checkCollision(head, food)) {
+            // Check if snake ate food
+            if (head.x === food.x && head.y === food.y) {
+                setScore(prev => prev + 10);
                 setFood(generateFood());
-                setScore(s => s + 1);
             } else {
                 newSnake.pop();
             }
 
-            return newSnake;
-        });
-    }, [direction, food, generateFood, isGameOver, isPaused]);
-
-    // Handle keyboard input
-    const handleKeyPress = useCallback((event) => {
-        if (isGameOver) return;
-
-        switch (event.key) {
-            case 'ArrowUp':
-                if (direction !== 'DOWN') setDirection('UP');
-                break;
-            case 'ArrowDown':
-                if (direction !== 'UP') setDirection('DOWN');
-                break;
-            case 'ArrowLeft':
-                if (direction !== 'RIGHT') setDirection('LEFT');
-                break;
-            case 'ArrowRight':
-                if (direction !== 'LEFT') setDirection('RIGHT');
-                break;
-            case ' ':
-                setIsPaused(p => !p);
-                break;
-            default:
-                break;
-        }
-    }, [direction, isGameOver]);
-
-    // Game loop
-    useEffect(() => {
-        const gameInterval = setInterval(moveSnake, GAME_SPEED);
-        window.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            clearInterval(gameInterval);
-            window.removeEventListener('keydown', handleKeyPress);
+            setSnake(newSnake);
         };
-    }, [moveSnake, handleKeyPress]);
+
+        const gameInterval = setInterval(moveSnake, GAME_SPEED);
+        return () => clearInterval(gameInterval);
+    }, [snake, direction, food, isGameOver, isPaused, generateFood]);
 
     // Reset game
     const resetGame = () => {
         setSnake(INITIAL_SNAKE);
-        setFood(INITIAL_FOOD);
         setDirection(INITIAL_DIRECTION);
-        setIsGameOver(false);
+        setFood(generateFood());
         setScore(0);
+        setIsGameOver(false);
         setIsPaused(false);
     };
 
-    // Render game grid
-    const renderGrid = () => {
-        const grid = [];
+    // Render game board
+    const renderBoard = () => {
+        const board = [];
         
-        for (let y = 0; y < GRID_SIZE; y++) {
-            for (let x = 0; x < GRID_SIZE; x++) {
-                const isSnake = snake.some(segment => checkCollision(segment, { x, y }));
-                const isHead = checkCollision(snake[0], { x, y });
-                const isFood = checkCollision(food, { x, y });
+        for (let y = 0; y < BOARD_SIZE; y++) {
+            const row = [];
+            for (let x = 0; x < BOARD_SIZE; x++) {
+                // Determine cell content
+                const isSnake = snake.some(segment => segment.x === x && segment.y === y);
+                const isHead = snake[0].x === x && snake[0].y === y;
+                const isFood = food.x === x && food.y === y;
                 
-                grid.push(
-                    <div
-                        key={`${x}-${y}`}
-                        className={`cell ${isSnake ? 'snake' : ''} ${isHead ? 'head' : ''} ${isFood ? 'food' : ''}`}
-                    />
-                );
+                const cellClass = `cell${isSnake ? ' snake' : ''}${isHead ? ' head' : ''}${isFood ? ' food' : ''}`;
+                
+                row.push(<div key={`${x}-${y}`} className={cellClass} />);
             }
+            board.push(<div key={y} className="row">{row}</div>);
         }
         
-        return grid;
+        return board;
     };
 
     return (
         <div className="snake-game">
-            <div className="status">
-                <span>Score: {score}</span>
-                {isPaused && <span>PAUSED</span>}
-                {isGameOver && <span>GAME OVER!</span>}
+            <div className="game-header">
+                <div className="score">Score: {score}</div>
+                {isPaused && <div className="paused">PAUSED</div>}
             </div>
-            <div className="snake-grid">
-                {renderGrid()}
+            
+            <div className="board">
+                {renderBoard()}
             </div>
+
+            {isGameOver && (
+                <div className="game-over">
+                    <h2>Game Over!</h2>
+                    <p>Final Score: {score}</p>
+                    <button className="btn" onClick={resetGame}>
+                        Play Again
+                    </button>
+                </div>
+            )}
+
             <div className="controls">
-                <button className="btn reset-button" onClick={resetGame}>
-                    {isGameOver ? 'Play Again' : 'Reset Game'}
+                <p>Use arrow keys to move</p>
+                <p>Space to pause</p>
+                <button className="btn" onClick={resetGame}>
+                    Reset Game
                 </button>
-                <button className="btn pause-button" onClick={() => setIsPaused(p => !p)}>
-                    {isPaused ? 'Resume' : 'Pause'}
-                </button>
-            </div>
-            <div className="instructions">
-                <p>Use arrow keys to control the snake.</p>
-                <p>Press spacebar to pause/resume.</p>
             </div>
         </div>
     );

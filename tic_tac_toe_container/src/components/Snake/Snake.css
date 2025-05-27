@@ -4,28 +4,57 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-.snake-grid {
-    display: grid;
-    grid-template-columns: repeat(20, 20px);
-    grid-template-rows: repeat(20, 20px);
-    gap: 1px;
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.paused {
+    font-size: 1.5rem;
+    color: var(--kavia-orange);
+    font-weight: bold;
+}
+
+.board {
     background: var(--kavia-dark);
-    padding: 10px;
-    border-radius: 8px;
     border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    width: 500px;
+    height: 500px;
+    max-width: 90vw;
+    max-height: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex: 1;
 }
 
 .cell {
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+    flex: 1;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.1s ease;
 }
 
 .cell.snake {
     background-color: var(--kavia-orange);
+    border-radius: 2px;
 }
 
 .cell.head {
@@ -37,37 +66,48 @@
     border-radius: 50%;
 }
 
-.status {
-    font-size: 1.5rem;
-    display: flex;
-    gap: 20px;
-    color: var(--text-color);
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 10;
+}
+
+.game-over h2 {
+    color: var(--kavia-orange);
+    margin: 0 0 1rem 0;
 }
 
 .controls {
-    display: flex;
-    gap: 10px;
-}
-
-.instructions {
-    color: var(--text-secondary);
     text-align: center;
-    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
 }
 
-.instructions p {
-    margin: 5px 0;
+.controls p {
+    margin: 0.5rem 0;
 }
 
 /* Responsive design */
-@media (max-width: 480px) {
-    .snake-grid {
-        grid-template-columns: repeat(20, 15px);
-        grid-template-rows: repeat(20, 15px);
+@media (max-width: 600px) {
+    .snake-game {
+        padding: 10px;
     }
 
-    .cell {
-        width: 15px;
-        height: 15px;
+    .board {
+        padding: 5px;
+    }
+
+    .score {
+        font-size: 1.2rem;
+    }
+
+    .controls {
+        font-size: 0.9rem;
     }
 }

@@ -24,3 +24,64 @@ Watchpack Error (initial scan): Error: ENOTSUP: operation not supported on socke
 Compiling...
 Compiled successfully!
 webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/App.js
+Syntax error: Identifier 'Snake' has already been declared. (4:7) (4:7)
+ERROR in ./src/App.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/src/App.js: Identifier 'Snake' has already been declared. (4:7)
+
+  2 | import './App.css';
+  3 | import Snake from './components/Snake/Snake';
+> 4 | import Snake from './components/Snake/Snake';
+    |        ^
+  5 |
+  6 | function App() {
+  7 |   const [currentGame, setCurrentGame] = useState('tictactoe');
+    at constructor (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:360:19)
+    at FlowParserMixin.raise (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:3327:19)
+    at FlowScopeHandler.checkRedeclarationInScope (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:1555:19)
+    at FlowScopeHandler.declareName (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:1521:12)
+    at FlowScopeHandler.declareName (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:1622:11)
+    at FlowParserMixin.declareNameFromIdentifier (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:7476:16)
+    at FlowParserMixin.checkIdentifier (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:7472:12)
+    at FlowParserMixin.checkLVal (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:7413:12)
+    at FlowParserMixin.finishImportSpecifier (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:13898:10)
+    at FlowParserMixin.parseImportSpecifierLocal (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:5605:31)
+    at FlowParserMixin.maybeParseDefaultImportSpecifier (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:14001:12)
+    at FlowParserMixin.parseImportSpecifiersAndAfter (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:13872:29)
+    at FlowParserMixin.parseImport (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:13868:17)
+    at FlowParserMixin.parseStatementContent (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12514:27)
+    at FlowParserMixin.parseStatementLike (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12406:17)
+    at FlowParserMixin.parseStatementLike (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:5140:24)
+    at FlowParserMixin.parseModuleItem (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12383:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12960:36)
+    at FlowParserMixin.parseBlockBody (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12953:10)
+    at FlowParserMixin.parseProgram (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12280:10)
+    at FlowParserMixin.parseTopLevel (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:12270:25)
+    at FlowParserMixin.parseTopLevel (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:5909:28)
+    at FlowParserMixin.parse (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:14120:10)
+    at parse (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/parser/lib/index.js:14154:38)
+    at parser (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at step (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/gensync/index.js:261:32)
+    at /tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/gensync/index.js:273:13
+    at async.call.result.err.err (/tmp/kavia/workspace/code-generation/tictactoe-challenge-1278-eea4842d/tic_tac_toe_container/node_modules/gensync/index.js:223:11)
+
+ERROR in [eslint] 
+src/App.js
+  Line 4:7:  Parsing error: Identifier 'Snake' has already been declared. (4:7)
+
+webpack compiled with 2 errors

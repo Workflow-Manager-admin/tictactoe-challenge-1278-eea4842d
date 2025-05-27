@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import TicTacToe from './components/TicTacToe/TicTacToe';
+import Snake from './components/Snake/Snake';
 import Snake from './components/Snake/Snake';
 
 function App() {

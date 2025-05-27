@@ -85,3 +85,6 @@ src/App.js
   Line 4:7:  Parsing error: Identifier 'Snake' has already been declared. (4:7)
 
 webpack compiled with 2 errors
+Compiling...
+Compiled successfully!
+webpack compiled successfully

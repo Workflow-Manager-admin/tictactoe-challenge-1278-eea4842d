@@ -57,12 +57,18 @@ body {
 
 .hero {
   padding-top: 120px;
-  padding-bottom: 64px;
+  padding-bottom: 32px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 64px;
 }
 
 .subtitle {

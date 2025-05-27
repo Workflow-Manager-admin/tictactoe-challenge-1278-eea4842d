@@ -21,3 +21,9 @@ webpack compiled successfully
 Watchpack Error (initial scan): Error: ENOTSUP: operation not supported on socket, lstat '/tmp/.s.PGSQL.5432'
 Watchpack Error (initial scan): Error: ENOTSUP: operation not supported on socket, lstat '/tmp/vscode-git-5c7ec65e33.sock'
 Watchpack Error (initial scan): Error: ENOTSUP: operation not supported on socket, lstat '/tmp/vscode-git-9b05060ae2.sock'
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully

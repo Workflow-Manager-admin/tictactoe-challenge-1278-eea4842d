@@ -43,6 +43,28 @@ body {
   gap: 8px;
 }
 
+.game-switcher {
+  display: flex;
+  gap: 10px;
+}
+
+.game-switcher .btn {
+  background-color: transparent;
+  border: 1px solid var(--kavia-orange);
+  color: var(--kavia-orange);
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+.game-switcher .btn:hover {
+  background-color: rgba(232, 122, 65, 0.1);
+}
+
+.game-switcher .btn.active {
+  background-color: var(--kavia-orange);
+  color: white;
+}
+
 .logo-symbol {
   color: var(--kavia-orange);
 }

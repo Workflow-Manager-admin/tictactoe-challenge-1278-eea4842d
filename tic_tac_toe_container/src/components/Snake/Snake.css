@@ -1,0 +1,73 @@
+.snake-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.snake-grid {
+    display: grid;
+    grid-template-columns: repeat(20, 20px);
+    grid-template-rows: repeat(20, 20px);
+    gap: 1px;
+    background: var(--kavia-dark);
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.cell.snake {
+    background-color: var(--kavia-orange);
+}
+
+.cell.head {
+    background-color: #FF8B4D;
+}
+
+.cell.food {
+    background-color: #4CAF50;
+    border-radius: 50%;
+}
+
+.status {
+    font-size: 1.5rem;
+    display: flex;
+    gap: 20px;
+    color: var(--text-color);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.instructions {
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.instructions p {
+    margin: 5px 0;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .snake-grid {
+        grid-template-columns: repeat(20, 15px);
+        grid-template-rows: repeat(20, 15px);
+    }
+
+    .cell {
+        width: 15px;
+        height: 15px;
+    }
+}
